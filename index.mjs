@@ -4,27 +4,6 @@ const okBtn = document.getElementById('ok');
 const deleteBtn = document.getElementById('del');
 const display = document.getElementById('display');
 
-//const client = createClient();
-  //createClient({
-  // url: 'redis://alice:foobared@awesome.redis.server:6380'
-  //});
-
-//client.on('error', err => console.log('Redis Client Error', err));
-
-//await client.connect();
-
-//await client.set('key', 'value');
-//const value = await client.get('key');
-
-//const data = await client.hGetAll('key'); //обєкт значень з redis
-
-// Object.entries(data).forEach(([key, value]) => {
-//   console.log(`${key} ${value}`);
-// });
-
-
-//await client.disconnect();
-
 let counter = -1;
 
 const data = {
@@ -57,11 +36,9 @@ function showNextItem(counter) {
   }
 }
 
-// function deleteCacheById(key) {
-//   return new Promise((resv, rej) => {
-//     client.del(key, (err, reply) => {
-//       resv(1);
-//     });
-//   })
-// }
 console.log('hello');
+
+
+
+
+

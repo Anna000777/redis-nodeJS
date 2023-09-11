@@ -1,4 +1,4 @@
-const express = require('express');
+//const express = require('express');
 // const exphbs = require('express-handlebars');
 // const path = require('path');
 // const bodyParser = require('body-parser');
@@ -14,8 +14,8 @@ client.on('connect', function() {
 });
 
 // ---------Start server express
-const port = 3000;
-const app = express();
+//const port = 3000;
+//const app = express();
 
 //View engine
 // app.engine('handlebars', exphbs({defaultLayout: 'main'}));
@@ -32,30 +32,11 @@ const app = express();
 //   res.render('searchusers');
 // });
 
-// Start server
+//Start server
 app.listen(port, function(){
   console.log(`Server started on port ${port}`);
 });
 
-
-
-
-
-
-
-///-------------------//
-// import { createClient } from 'redis';
-
-// const client = createClient();
-
-// client.on('error', err => console.log('Redis Client Error', err));
-
-// await client.connect();
-
-// await client.set('key', 'value');
-// const value = await client.get('key');
-// console.log(value);
-// await client.disconnect();
 
 
 
