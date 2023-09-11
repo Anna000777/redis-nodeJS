@@ -45,7 +45,7 @@ deleteBtn.addEventListener('click', () => {
   deleteCacheById();
 });
 
-function showNextItem(counter) {
+export function showNextItem(counter) {
   const objData = Object.entries(data);
   for (let i=0; i<objData.length; i++) {
     if (counter <= i) {
