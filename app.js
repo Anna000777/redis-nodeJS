@@ -45,7 +45,6 @@ app.listen(port, function(){
 
 ///-------------------//
 // import { createClient } from 'redis';
-// // //import { showNextItem } from './index.mjs';
 
 // const client = createClient();
 
@@ -57,6 +56,8 @@ app.listen(port, function(){
 // const value = await client.get('key');
 // console.log(value);
 // await client.disconnect();
+
+
 
 //----------Start server default
 // const http = require('http');
