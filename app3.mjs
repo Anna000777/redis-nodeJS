@@ -70,8 +70,8 @@ app.use(methodOverride('_method'));
 // });
 
 //---------
-//app.use(cors());
-//app.use(express.json());
+app.use(cors());
+app.use(express.json());
 
 app.get('/message', (req, res, next) => {
    res.json({message: "Hello from server!"});
@@ -108,6 +108,16 @@ app.get('/', async (req,res) => {
 //   console.log(JSON.stringify(userSession, null, 2));
 
 //   const data = JSON.stringify(userSession, null, 2);
+
+app.get('/json', async (req,res) => {
+  try {
+    let userSession = await client.hGetAll('user-session:123'); 
+    res.json({result: userSession});
+  } catch (err) {
+    console.log('Error:', err);
+  }
+})
+ 
 
 //--------
 app.get('/pong', async (req, res) => {
