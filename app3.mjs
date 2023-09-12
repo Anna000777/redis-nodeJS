@@ -17,11 +17,27 @@ import { createClient } from 'redis';
 
 //--------- Create redis client
 //let client = redis.createClient();
-const client = createClient();
-client.on('error', err => console.log('Redis Client Error', err));
 
-await client.connect();
-console.log('Connected to Redis...');
+//start of async func
+(async () =>  {
+  const client = createClient();
+   //createClient({
+  // url: 'redis://alice:foobared@awesome.redis.server:6380'
+  //});
+  // const redis = new Redis({
+  //   host: 'localhost', // Your Redis server host
+  //   port: 6379,        // Your Redis server port
+  // });
+// Wait for the Redis connection to be established
+//await redis.connect();
+
+
+  client.on('error', err => console.log('Redis Client Error', err));
+
+  await client.connect();
+  console.log('Connected to Redis...');
+
+
 
 
 //client.on('error', err => console.log('Redis Client Error', err));
@@ -42,7 +58,7 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
-//app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public'))); //Error
 
 //MethodOverride
 app.use(methodOverride('_method'));
@@ -104,14 +120,9 @@ app.get('/', async (req,res) => {
     res.render('details',{result: userSession});
   } catch (err) {
     console.log('Error:', err);
-  }
-})
-// await client.hSet('user-session:123', {
-//   name: 'John',
-//   surname: 'Smith',
-//   company: 'Redis',
-//   age: 29
-// })
+  };
+});
+
 // let userSession = await client.hGetAll('user-session:123');
 //   console.log(JSON.stringify(userSession, null, 2));
 
@@ -123,8 +134,8 @@ app.get('/json', async (req,res) => {
     res.json({result: userSession});
   } catch (err) {
     console.log('Error:', err);
-  }
-})
+  };
+});
  
 
 //--------
@@ -134,7 +145,7 @@ app.get('/pong', async (req, res) => {
     res.json({Ping: data});
   } catch (err) {
     console.log('Ping error:', err);
-  }
+  };
 });
 
 
@@ -145,12 +156,14 @@ app.get('/pong', async (req, res) => {
 // console.log(JSON.stringify(userSession, null, 2));
 
 
+
+
 //Start server
-app.listen(port, function(){
+app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
 
-
+})(); // end of async function
 
 
 //----------Start server default
