@@ -48,26 +48,32 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(methodOverride('_method'));
 
 //SearchPage
-// app.get('/', (req, res, next) => {
-//   res.render('searchusers');
-// });
+app.get('/search', (req, res, next) => {
+  res.render('searchusers');
+});
+
+//Delete User Page
+app.delete('/user/delete/:id', async (req, res, next) => {
+  await client.del(req.params.id);
+  res.redirect('/');
+});
 
 //Search Processing
-// app.post('/user/search', (req, res, next) => {
-//   let id = req.body.id;
-//   client.hGetAll(id, function(err, obj){
-//   if (!obj) {
-//      res.render('searchusers', {
-//        error: "User doesnot exist"
-//      });
-//   } else {
-//      obj.id = id;
-//      res.render('details', {
-//        user: obj    
-//      });
-//   }
-//  });
-// });
+app.post('/user/search', async (req, res, next) => {
+  let id = req.body.id;
+  await client.hGetAll(id, function(err, obj){
+  if (!obj) {
+     res.render('searchusers', {
+       error: "User doesnot exist"
+     });
+  } else {
+     obj.id = id;
+     res.render('details', {
+       user: obj    
+     });
+  }
+ });
+});
 
 //---------
 app.use(cors());
@@ -84,16 +90,18 @@ app.get('/', async (req,res) => {
         name: 'John',
         surname: 'Smith',
         company: 'Redis',
-        age: 29
+        age: 29,
+        id: 1
       })
     await client.hSet('user-session:124', {
       name: 'Anna',
       surname: 'Doe',
       company: 'Redis',
-      age: 30
+      age: 30,
+      id: 2
     })
     let userSession = await client.hGetAll('user-session:123'); 
-    res.render('searchusers',{result: userSession});
+    res.render('details',{result: userSession});
   } catch (err) {
     console.log('Error:', err);
   }
