@@ -1,5 +1,3 @@
-//import { createClient } from 'redis';
-
 const okBtn = document.getElementById('ok');
 const deleteBtn = document.getElementById('del');
 const display = document.getElementById('display');

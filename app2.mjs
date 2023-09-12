@@ -19,6 +19,7 @@ await client.hSet('user-session:123', {
   age: 29
 })
 
+
 let userSession = await client.hGetAll('user-session:123');
 console.log(JSON.stringify(userSession, null, 2));
 

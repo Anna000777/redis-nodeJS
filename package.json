@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node app3.mjs",
     "dev": "nodemon app.js",
     "start2": "nodemon app2.mjs"
   },
-
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
