@@ -1,4 +1,4 @@
-<div>{{result.name}}{{result.id}}</div>
-<form method="">
-  <input type="submit" action="/user/delete/{{result.id}}?_method=DELETE" value="DELETE User">
+<div>{{user.name}}{{user.id}}</div>
+<form method="POST" action="/user/delete/{{user.id}}?_method=DELETE">
+  <input type="submit" value="DELETE User">
 </form>

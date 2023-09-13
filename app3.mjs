@@ -9,7 +9,7 @@
 import express from 'express';
 import cors from 'cors';
 import { engine } from 'express-handlebars';
-import path from 'path';
+import { dirname } from 'path';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
 import { createClient } from 'redis';
@@ -56,28 +56,28 @@ app.set('view engine', 'handlebars');
 
 //Body parser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true})); //CHECK HERE
 
-//app.use(express.static(path.join(__dirname, 'public'))); //Error
+app.use(express.static('public'));          //connect static css
 
 //MethodOverride
 app.use(methodOverride('_method'));
 
+//---------
+app.use(cors());
+//app.use(express.json());
+
 //SearchPage
-app.get('/search', (req, res, next) => {
+app.get('/', (req, res, next) => {
   res.render('searchusers');
 });
 
-//Delete User Page
-app.delete('/user/delete/:id', async (req, res, next) => {
-  await client.del(req.params.id);
-  res.redirect('/');
-});
-
-//Search Processing
-app.post('/user/search', async (req, res, next) => {
+//Search Processing                                 CHECK HERE!!!!
+app.post('/user/search', (req, res, next) => {
   let id = req.body.id;
-  await client.hGetAll(id, function(err, obj){
+  console.log(req);
+  console.log(id);
+  client.hGetAll(id, function(err, obj){
   if (!obj) {
      res.render('searchusers', {
        error: "User doesnot exist"
@@ -91,16 +91,19 @@ app.post('/user/search', async (req, res, next) => {
  });
 });
 
-//---------
-app.use(cors());
-app.use(express.json());
 
+//Delete User Page                                    CHECK HERE!!!!!!
+app.delete('/user/delete/:id', (req, res, next) => {
+  client.del(req.params.id);
+  res.redirect('/');
+});
+
+// OTHER test requests
 app.get('/message', (req, res, next) => {
    res.json({message: "Hello from server!"});
 });
 
-
-app.get('/', async (req,res) => {
+app.get('/users', async (req,res) => {
   try {
     await client.hSet('user-session:123', {
         name: 'John',
@@ -117,7 +120,7 @@ app.get('/', async (req,res) => {
       id: 2
     })
     let userSession = await client.hGetAll('user-session:123'); 
-    res.render('details',{result: userSession});
+    res.render('details',{user: userSession});
   } catch (err) {
     console.log('Error:', err);
   };
